@@ -1,40 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+/* App.css */
+body {
+  background-color: #f8f9fa;
+}
 
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+/* Navbar.css */
 
-form {
-  max-width: 400px;
-  margin: 40px auto;
+.navbar {
+  background-color: #2c3e50 !important; /* Dark blue background */
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ecf0f1 !important; /* Light gray text */
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #3498db !important; /* Light blue on hover */
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-link {
+  color: #bdc3c7 !important; /* Light gray text */
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #3498db !important; /* Light blue on hover */
+}
+
+/* Active link styling */
+.nav-link.active {
+  color: #3498db !important;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-nav {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .nav-item {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
   padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
 h2 {
-  margin-top: 0;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input[type="text"], input[type="email"], input[type="tel"] {
-  width: 100%;
-  padding: 10px;
+  color: #007bff;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
 }
 
-button[type="button"] {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+form {
+  margin-bottom: 30px;
 }
 
-button[type="button"]:hover {
-  background-color: #3e8e41;
+.table {
+  margin-top: 20px;
 }
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+

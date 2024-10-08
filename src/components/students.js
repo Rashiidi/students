@@ -1,54 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const StudentFormComponent = ({ onAddStudent }) => {
-  const [newStudent, setNewStudent] = useState({
-    name: '',
-    email: '',
-    class: '',
-    course: '',
-    phoneNumber: '',
-  });
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNewStudent({ ...newStudent, [name]: value });
-  };
-
-  const handleAddStudent = () => {
-    onAddStudent(newStudent);
-    setNewStudent({ name: '', email: '', class: '', course: '', phoneNumber: '' });
-  };
-
+const Students = ({ students, deleteStudent, editStudent }) => {
   return (
-    <form>
-      <label>
-        Name:
-        <input type="text" name="name" value={newStudent.name} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input type="email" name="email" value={newStudent.email} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Class:
-        <input type="text" name="class" value={newStudent.class} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Course:
-        <input type="text" name="course" value={newStudent.course} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Phone Number:
-        <input type="tel" name="phoneNumber" value={newStudent.phoneNumber} onChange={handleInputChange} />
-      </label>
-      <br />
-      <button type="button" onClick={handleAddStudent}>Add Student</button>
-    </form>
+    <div>
+      <h2>Student List</h2>
+      {students.length === 0 ? (
+        <p>No students added yet.</p>
+      ) : (
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Class</th>
+              <th>Course</th>
+              <th>Phone</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map((student) => (
+              <tr key={student.id}>
+                <td>{student.name}</td>
+                <td>{student.email}</td>
+                <td>{student.class}</td>
+                <td>{student.course}</td>
+                <td>{student.phone}</td>
+                <td>
+                  <button 
+                    className="btn btn-sm btn-danger"
+                    onClick={() => deleteStudent(student.id)}
+                  >
+                    Delete
+                  </button>
+                  <button 
+                    className="btn btn-sm btn-primary"
+                    onClick={() => editStudent(student.id)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
-};
+}
 
-export default StudentFormComponent;
+export default Students;
