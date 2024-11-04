@@ -5,11 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Home = ({ addStudent }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    class: '',
-    course: '',
-    phone: ''
+    FirstName: '',
+    lastName: '',
+    gender: ''
   });
 
   const handleChange = (e) => {
@@ -19,30 +17,76 @@ const Home = ({ addStudent }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addStudent(formData);
-    setFormData({ name: '', email: '', class: '', course: '', phone: '' });
+    saveStudent(e); 
+    setFormData({ firstName: '', lastName: '', gender: '' });
   }
+  
+
+  const saveStudent = (e) => {
+    e.preventDefault();
+
+    const token = sessionStorage.getItem("access_token");
+
+    axios.post('http://localhost:4000/addstudent', formData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => {
+        toast.success("Student added successfully!");
+        setFormData({ firstName: '', lastName: '', gender: '' }); // Clear form on success
+    })
+    .catch((error) => {
+        toast.error("Failed to add student. Please try again.");
+        console.error("There was an error adding the student!", error);
+    });
+};
+
 
   return (
     <div>
       <h2>Add Student Information</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <input type="text" className="form-control" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+          <input 
+            type="text" 
+            className="form-control" 
+            name="FirstName" 
+            value={formData.firstName} 
+            onChange={handleChange} 
+            placeholder="First Name" 
+            required 
+          />
         </div>
         <div className="mb-3">
-          <input type="email" className="form-control" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+          <input 
+            type="text" 
+            className="form-control" 
+            name="lastName" 
+            value={formData.lastName} 
+            onChange={handleChange} 
+            placeholder="Last Name" 
+            required 
+          />
         </div>
         <div className="mb-3">
-          <input type="text" className="form-control" name="class" value={formData.class} onChange={handleChange} placeholder="Class Attending" required />
-        </div>
-        <div className="mb-3">
-          <input type="text" className="form-control" name="course" value={formData.course} onChange={handleChange} placeholder="Course" required />
-        </div>
-        <div className="mb-3">
-          <input type="tel" className="form-control" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
+          <select 
+            className="form-control" 
+            name="gender" 
+            value={formData.gender} 
+            onChange={handleChange} 
+            required>
+          
+            <option value="" disabled>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         <button type="submit" className="btn btn-primary">Add Student</button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Home from './components/home';
 import Students from './components/students';
+import StudentDetails from './components/studentdetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -12,8 +13,12 @@ function App() {
   const addStudent = (newStudent) => {
     setStudents([...students, { ...newStudent, id: Date.now() }]);
   };
+  
+
+  
 
   return (
+    
     <Router>
       <div className="App">
         <Navbar />
@@ -21,6 +26,13 @@ function App() {
           <Switch>
             <Route exact path="/" render={() => <Home addStudent={addStudent} />} />
             <Route path="/students" render={() => <Students students={students} />} />
+            <Route path='/student-details/:id'>
+          <StudentDetails/>
+        </Route>
+        <Route path='/'>
+          <StudentDetails/>
+        </Route>
+            
             
           </Switch>
         </div>
